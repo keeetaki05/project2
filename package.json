@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "@mapbox/mapbox-sdk": "^0.16.1",
     "accepts": "^2.0.0",
     "ansi-styles": "^4.3.0",
     "append-field": "^1.0.0",
