@@ -17,6 +17,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const Listing = require('./models/listing');
 
 
 const listingRouter = require("./routes/listing.js");
@@ -127,9 +128,10 @@ app.use((err , req , res , next) => {
 //     res.status(statusCode).send(message);
 // });
 
-app.get("/", (req, res) => {
+app.get("/", async(req, res) => {
+    const allListings = await Listing.find({});
     req.session.test = "Session Working!";
-    res.send("Root route hit. Session should now be created.");
+    res.render("listings/index" , {allListings});
   });
 
 app.listen(8080 , () => {
