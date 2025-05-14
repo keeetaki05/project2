@@ -18,6 +18,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const Listing = require('./models/listing');
+const listings = require('./routes/listings');
 
 
 const listingRouter = require("./routes/listing.js");
@@ -45,6 +46,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.engine('ejs' , ejsMate);
 app.use(express.static(path.join(__dirname , "/public")));
+app.use('/listings' , listings);
 
 
 const store = MongoStore.create({
@@ -133,6 +135,11 @@ app.get("/", async(req, res) => {
     req.session.test = "Session Working!";
     res.render("listings/index" , {allListings});
   });
+
+
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 
 app.listen(8080 , () => {
     console.log("server is listening to port 8080");
